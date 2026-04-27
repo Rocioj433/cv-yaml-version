@@ -1,0 +1,89 @@
+cv:
+  name: Rocio Sanchez
+  headline:
+  location: CABA,Buenos Aires
+  email: rocioj433@gmail.com
+  photo:
+  social_networks:
+    - network: LinkedIn
+      username: rocio jazmin sanchez suarez
+    - network: GitHub
+      username: rocioj433
+  custom_connections:
+  sections:
+    summary:
+      - >
+        Desarrolladora Fullstack con 3 años de experiencia especializada en el
+        mantenimiento  de plataformas críticas para mercados globales (LATAM y
+        Europa). Perfil híbrido  con sólidas bases en Frontend (React) y
+        evolución autónoma hacia el Backend  (Golang, Symfony). Experta en
+        resolver bloqueos técnicos complejos mediante el  uso estratégico de IA
+        y servicios Cloud (AWS).
+    education:
+      - institution: Instituto de Formacion Tecnica Superior
+        area: Analista de Sistemas
+        start_date: 2024-02
+        end_date: present
+        location: CABA
+        summary:
+        highlights:
+          - 'Tecnicatura Superior'
+          - 'Formación integral en el ciclo de vida de desarrollo de software
+            (SDLC), metodologías de análisis y diseño de sistemas escalables.'
+          - Enfoque técnico en modelado de datos, arquitectura de sistemas y
+            gestión de recursos informáticos en entornos corporativos.
+      - institution: Escuela Tecnica "Dolores Lavalle de La valle"
+        area: Técnico en Computación
+        start_date: 2015-03
+        end_date: 2020-12
+        location: CABA
+        summary:
+        highlights:
+          - Sólida base técnica en Algoritmos, Estructura de Datos y
+            Programación Orientada a Objetos.
+          - Formación práctica en Administración de Redes y Gestión de Bases de
+            Datos Relacionales.
+    experience:
+      - company: MKTBaires
+        position: Web Developer / Frontend Support
+        start_date: 2023-01
+        end_date: 2026-03
+        location: Remoto / Buenos Aires
+        summary:
+        highlights:
+          - Liderazgo autónomo en el mantenimiento técnico de la plataforma
+            regional para **3M (LATAM & Europa)**, gestionando el ciclo completo
+            de vida del software.
+          - Transición progresiva de roles Frontend hacia el desarrollo
+            Fullstack, asumiendo la lógica de negocio en **Golang** y **PHP
+            (Symfony)** tras un proceso de autoaprendizaje.
+          - Optimización y gestión de bases de datos **MySQL**, desarrollando
+            consultas complejas y asegurando la integridad de datos para
+            operaciones internacionales.
+          - Colaboración bajo metodología **Scrum** (Trello), garantizando
+            entregas puntuales y resolución independiente de tickets técnicos de
+            alta prioridad.
+    projects:
+      - name: 'Personal Finance App'
+        start_date: 2026-03
+        end_date: present
+        summary: Aplicación móvil de gestión financiera desarrollada con React Native.
+        highlights:
+          - Integración de **Google Workspace API** para la automatización de
+            hojas de cálculo y reportes mensuales de gastos.
+          - Implementación de un agente inteligente para el procesamiento y
+            categorización automática de resúmenes de tarjetas de crédito.
+    skills:
+      - label: Frontend
+        details: React.js, JavaScript (ES6+), HTML5, CSS3, React Native
+      - label: Backend
+        details: Golang, PHP (Symfony), RESTful APIs
+      - label: Database & Cloud
+        details: MySQL, AWS Services, Query Optimization
+      - label: Tools & Methods
+        details: Git, GitHub Copilot (AI-Assisted Dev), Scrum, Trello
+    language:
+      - label: Español
+        details: Nativo
+      - label: Ingles
+        details: Intermedio
