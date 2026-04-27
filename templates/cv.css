@@ -1,0 +1,290 @@
+/* ============================================
+   CV STYLESHEET — Harvard / Academic Style
+   A4 • Serif Typography • Clean & Minimal
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --color-text: #1a1a1a;
+  --color-text-secondary: #3a3a3a;
+  --color-text-muted: #555555;
+  --color-accent: #1a1a1a;
+  --color-rule: #222222;
+  --color-rule-light: #cccccc;
+  --color-bg: #ffffff;
+
+  --font-serif: 'EB Garamond', 'Times New Roman', Georgia, serif;
+  --font-sans: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+
+  --page-width: 210mm;
+  --page-min-height: 297mm;
+  --margin-top: 12mm;
+  --margin-bottom: 10mm;
+  --margin-left: 16mm;
+  --margin-right: 16mm;
+}
+
+/* ---- RESET & BASE ---- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10pt;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+body {
+  font-family: var(--font-serif);
+  color: var(--color-text);
+  background: #f0f0f0;
+  line-height: 1.35;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- PAGE CONTAINER ---- */
+.cv-page {
+  width: var(--page-width);
+  min-height: var(--page-min-height);
+  margin: 0 auto;
+  padding: var(--margin-top) var(--margin-right) var(--margin-bottom) var(--margin-left);
+  background: var(--color-bg);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+}
+
+/* ---- HEADER ---- */
+.cv-header {
+  text-align: center;
+  margin-bottom: 2px;
+}
+
+.cv-name {
+  font-family: var(--font-serif);
+  font-size: 20pt;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 4px;
+  line-height: 1.1;
+}
+
+.cv-contact {
+  font-family: var(--font-sans);
+  font-size: 8.5pt;
+  color: var(--color-text-secondary);
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2px 12px;
+  line-height: 1.4;
+}
+
+.cv-contact a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.cv-contact a:hover {
+  color: #0066cc;
+}
+
+.cv-contact .separator {
+  color: var(--color-rule-light);
+  user-select: none;
+}
+
+/* ---- HEADER RULE ---- */
+.header-rule {
+  border: none;
+  border-top: 2px solid var(--color-rule);
+  margin: 6px 0 8px 0;
+}
+
+/* ---- SECTIONS ---- */
+.cv-section {
+  margin-bottom: 8px;
+}
+
+.cv-section-title {
+  font-family: var(--font-serif);
+  font-size: 10.5pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--color-accent);
+  border-bottom: 1.5px solid var(--color-rule);
+  padding-bottom: 2px;
+  margin-bottom: 6px;
+}
+
+/* ---- SUMMARY ---- */
+.cv-summary p {
+  font-size: 9.5pt;
+  color: var(--color-text-secondary);
+  text-align: justify;
+  line-height: 1.4;
+  hyphens: auto;
+}
+
+/* ---- ENTRY (Education / Experience / Projects) ---- */
+.cv-entry {
+  margin-bottom: 7px;
+  page-break-inside: avoid;
+}
+
+.cv-entry:last-child {
+  margin-bottom: 0;
+}
+
+.cv-entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 2px 10px;
+  margin-bottom: 2px;
+}
+
+.cv-entry-title {
+  font-family: var(--font-serif);
+  font-size: 10pt;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.cv-entry-subtitle {
+  font-family: var(--font-serif);
+  font-size: 9.5pt;
+  font-style: italic;
+  color: var(--color-text-secondary);
+}
+
+.cv-entry-date {
+  font-family: var(--font-sans);
+  font-size: 8.5pt;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.cv-entry-location {
+  font-family: var(--font-sans);
+  font-size: 8.5pt;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.cv-entry-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 2px 10px;
+  margin-bottom: 2px;
+}
+
+/* ---- HIGHLIGHTS / BULLET POINTS ---- */
+.cv-highlights {
+  list-style: none;
+  padding-left: 14px;
+  margin-top: 2px;
+}
+
+.cv-highlights li {
+  font-size: 9pt;
+  color: var(--color-text-secondary);
+  line-height: 1.35;
+  margin-bottom: 1px;
+  position: relative;
+  padding-left: 10px;
+  text-align: justify;
+}
+
+.cv-highlights li::before {
+  content: '–';
+  position: absolute;
+  left: -4px;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.cv-highlights li strong {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* ---- SKILLS ---- */
+.cv-skills-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3px;
+}
+
+.cv-skill-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 9pt;
+}
+
+.cv-skill-label {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 8.5pt;
+  color: var(--color-text);
+  min-width: 130px;
+  flex-shrink: 0;
+}
+
+.cv-skill-details {
+  font-family: var(--font-serif);
+  color: var(--color-text-secondary);
+  font-size: 9pt;
+}
+
+/* ---- LANGUAGES ---- */
+.cv-languages-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 30px;
+}
+
+.cv-language-item {
+  font-size: 9pt;
+}
+
+.cv-language-label {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.cv-language-level {
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+/* ---- PRINT STYLES ---- */
+@media print {
+  body {
+    background: white;
+  }
+
+  .cv-page {
+    box-shadow: none;
+    margin: 0;
+    padding: var(--margin-top) var(--margin-right) var(--margin-bottom) var(--margin-left);
+    width: 100%;
+    min-height: auto;
+  }
+}
+
+@page {
+  size: A4;
+  margin: 0;
+}

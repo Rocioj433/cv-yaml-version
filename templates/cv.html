@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{NAME}} — Curriculum Vitae</title>
+  <link rel="stylesheet" href="cv.css">
+</head>
+<body>
+  <div class="cv-page">
+
+    <!-- HEADER -->
+    <header class="cv-header">
+      <h1 class="cv-name">{{NAME}}</h1>
+      <div class="cv-contact">
+        {{CONTACT_INFO}}
+      </div>
+    </header>
+
+    <hr class="header-rule">
+
+    <!-- SUMMARY -->
+    {{SUMMARY_SECTION}}
+
+    <!-- EDUCATION -->
+    {{EDUCATION_SECTION}}
+
+    <!-- EXPERIENCE -->
+    {{EXPERIENCE_SECTION}}
+
+    <!-- PROJECTS -->
+    {{PROJECTS_SECTION}}
+
+    <!-- SKILLS -->
+    {{SKILLS_SECTION}}
+
+    <!-- LANGUAGES -->
+    {{LANGUAGES_SECTION}}
+
+  </div>
+</body>
+</html>

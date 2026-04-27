@@ -1,0 +1,26 @@
+{
+  "name": "cv-yaml-version",
+  "version": "1.0.0",
+  "description": "Este proyecto es un generador automático de CV diseñado para perfiles técnicos. La idea central es separar la información (datos) de la presentación (diseño), utilizando **YAML** como fuente de verdad.",
+  "main": "scripts/generate.js",
+  "scripts": {
+    "generate": "node scripts/generate.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rocioj433/cv-yaml-version.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Rocioj433/cv-yaml-version/issues"
+  },
+  "homepage": "https://github.com/Rocioj433/cv-yaml-version#readme",
+  "dependencies": {
+    "js-yaml": "^4.1.1",
+    "playwright": "^1.59.1"
+  }
+}
