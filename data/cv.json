@@ -1,0 +1,121 @@
+{
+  "cv": {
+    "name": "John Doe",
+    "headline": "Fullstack Developer",
+    "location": "San Francisco, CA",
+    "email": "john.doe@example.com",
+    "photo": "",
+    "social_networks": [
+      {
+        "network": "LinkedIn",
+        "username": "https://www.linkedin.com/in/johndoe"
+      },
+      {
+        "network": "GitHub",
+        "username": "https://github.com/johndoe"
+      }
+    ],
+    "sections": {
+      "summary": [
+        "Fullstack Developer with 5+ years of experience building and maintaining scalable web applications for global markets. Proficient in modern JavaScript frameworks, backend services, and cloud infrastructure. Passionate about clean code, automated testing, and delivering high-impact features in agile environments."
+      ],
+      "education": [
+        {
+          "institution": "University of Technology",
+          "area": "B.Sc. Computer Science",
+          "start_date": "2014-09",
+          "end_date": "2018-06",
+          "location": "San Francisco, CA",
+          "highlights": [
+            "Dean's List recipient (2016, 2017)",
+            "Senior capstone project: Real-time collaborative code editor using WebSockets and CRDTs",
+            "Teaching assistant for Data Structures & Algorithms (2 semesters)"
+          ]
+        },
+        {
+          "institution": "City College",
+          "area": "A.S. Information Systems",
+          "start_date": "2012-08",
+          "end_date": "2014-06",
+          "location": "San Francisco, CA",
+          "highlights": [
+            "Graduated with honors (GPA 3.7)",
+            "Developed a campus event management system as final project"
+          ]
+        }
+      ],
+      "experience": [
+        {
+          "company": "TechCorp Inc.",
+          "position": "Senior Frontend Engineer",
+          "start_date": "2022-03",
+          "end_date": "present",
+          "location": "San Francisco, CA (Hybrid)",
+          "highlights": [
+            "Led the migration of a legacy jQuery monolith to **React 18** with **TypeScript**, serving **2M+ daily active users** across 4 regions.",
+            "Designed and implemented a component library adopted by 3 product teams, reducing UI development time by **40%**.",
+            "Established frontend testing standards (**Jest + Cypress**) increasing test coverage from 15% to **85%** in 6 months.",
+            "Mentored 2 junior developers through structured pair programming and code review rotations."
+          ]
+        },
+        {
+          "company": "StartupXYZ",
+          "position": "Fullstack Developer",
+          "start_date": "2020-01",
+          "end_date": "2022-02",
+          "location": "Remote",
+          "highlights": [
+            "Built RESTful APIs with **Node.js + Express** and **PostgreSQL**, handling 500K+ requests/day with **99.9% uptime**.",
+            "Implemented real-time notification system using **Socket.io** and **Redis pub/sub**, cutting email alert latency from 5s to under 500ms.",
+            "Containerized microservices with **Docker** and deployed on **AWS ECS**, reducing infrastructure costs by **25%**.",
+            "Collaborated in a 8-person cross-functional team using **Scrum** (Jira), averaging 35 story points per sprint."
+          ]
+        },
+        {
+          "company": "WebAgency Co.",
+          "position": "Junior Web Developer",
+          "start_date": "2018-07",
+          "end_date": "2019-12",
+          "location": "San Francisco, CA",
+          "highlights": [
+            "Developed responsive landing pages for 15+ clients using **React** and **SCSS**, improving mobile conversion rates by an average of **22%**.",
+            "Automated build and deployment pipelines with **Webpack** and **GitHub Actions**, cutting release time from 2 hours to 15 minutes."
+          ]
+        }
+      ],
+      "projects": [
+        {
+          "name": "OpenDash — Analytics Dashboard",
+          "start_date": "2025-06",
+          "end_date": "present",
+          "summary": "Open-source analytics dashboard with real-time data visualization.",
+          "highlights": [
+            "Built with **React + D3.js** and a **Go** backend, supporting 10K+ concurrent WebSocket connections.",
+            "Integrated **OAuth 2.0** (Google, GitHub) for authentication and role-based access control."
+          ]
+        },
+        {
+          "name": "DevConnect — Social Platform for Developers",
+          "start_date": "2024-03",
+          "end_date": "2024-12",
+          "summary": "A social networking platform for developers to share projects and find collaborators.",
+          "highlights": [
+            "Full-stack app using **Next.js**, **Prisma ORM**, and **PostgreSQL**.",
+            "Implemented real-time chat with **Socket.io** and feed personalization via collaborative filtering."
+          ]
+        }
+      ],
+      "skills": [
+        { "label": "Frontend", "details": "React, TypeScript, Next.js, HTML5, CSS3, Tailwind CSS, D3.js" },
+        { "label": "Backend", "details": "Node.js, Go, Python, RESTful APIs, GraphQL, Express" },
+        { "label": "Database & Cloud", "details": "PostgreSQL, MongoDB, Redis, AWS (ECS, RDS, S3), Docker" },
+        { "label": "Tools & Methods", "details": "Git, GitHub Actions, Jest, Cypress, Scrum, Jira" },
+        { "label": "AI & Productivity", "details": "ChatGPT, GitHub Copilot, LangChain, Prompt Engineering" }
+      ],
+      "language": [
+        { "label": "English", "details": "Native" },
+        { "label": "Spanish", "details": "Intermediate" }
+      ]
+    }
+  }
+}

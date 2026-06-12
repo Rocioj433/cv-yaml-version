@@ -69,8 +69,17 @@ body {
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--color-accent);
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   line-height: 1.1;
+}
+
+.cv-headline {
+  font-family: var(--font-sans);
+  font-size: 9pt;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
 }
 
 .cv-contact {
