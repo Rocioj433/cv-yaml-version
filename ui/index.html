@@ -255,9 +255,15 @@
     /* Section card */
     .section-card {
       border: 1px solid #e2e8f0;
-      border-radius: 0.5rem;
+      border-radius: 0.625rem;
       overflow: hidden;
       transition: border-color 0.2s;
+    }
+    .section-card .section-content {
+      padding: 1rem;
+    }
+    .section-card .section-content > * + * {
+      margin-top: 0.75rem;
     }
     .dark .section-card {
       border-color: #3a3a4f;
@@ -266,9 +272,9 @@
     /* Entry card (education, experience, etc) */
     .entry-card {
       border: 1px solid #e2e8f0;
-      border-radius: 0.375rem;
-      padding: 0.75rem;
-      margin-bottom: 0.5rem;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-bottom: 0.625rem;
       position: relative;
       transition: border-color 0.2s;
     }
@@ -277,7 +283,7 @@
     }
 
     /* Responsive */
-    @media (max-width: 1024px) {
+    @media (max-width: 900px) {
       .editor-layout {
         flex-direction: column;
       }
@@ -285,7 +291,38 @@
         width: 100% !important;
       }
       .preview-panel {
-        height: 60vh !important;
+        height: 55vh !important;
+        border-left: none !important;
+        border-top: 1px solid var(--tw-border, #e2e8f0);
+      }
+      .editor-panel {
+        height: auto !important;
+        max-height: 75vh;
+      }
+      .editor-layout {
+        height: auto !important;
+      }
+      .editor-layout > .preview-panel {
+        flex-shrink: 0;
+      }
+    }
+    @media (max-width: 640px) {
+      .header-actions .btn span {
+        display: none;
+      }
+      .brand-sub {
+        display: none;
+      }
+      .editor-panel {
+        padding: 0.625rem;
+      }
+      .section-card .grid-cols-2 {
+        grid-template-columns: 1fr !important;
+      }
+    }
+    @media (min-width: 641px) and (max-width: 900px) {
+      .section-card .grid-cols-2 {
+        grid-template-columns: 1fr !important;
       }
     }
   </style>
@@ -303,23 +340,34 @@
   <!-- Toast -->
   <div id="toast" class="toast"></div>
 
+  <!-- Report Modal -->
+  <div id="report-modal" class="fixed inset-0 z-[9997] flex items-start justify-center pt-12 px-4 opacity-0 pointer-events-none transition-opacity duration-200" style="background:rgba(0,0,0,0.5);">
+    <div class="bg-white dark:bg-[#1e1e2e] rounded-xl shadow-2xl w-full max-w-xl max-h-[80vh] overflow-y-auto border border-border dark:border-[#3a3a4f]">
+      <div class="p-4 sm:p-5 text-sm space-y-3" id="report-content"></div>
+    </div>
+  </div>
+
   <!-- ===== HEADER ===== -->
   <header class="sticky top-0 z-50 bg-white/90 dark:bg-[#1e1e2e]/90 backdrop-blur border-b border-border dark:border-[#3a3a4f]">
     <div class="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <span class="text-lg font-semibold tracking-tight">CV Editor</span>
-        <span class="text-xs text-gray-400 dark:text-gray-500 hidden sm:inline">YAML-powered resume builder</span>
+        <span class="brand-sub text-xs text-gray-400 dark:text-gray-500 hidden sm:inline">YAML-powered resume builder</span>
       </div>
-      <div class="flex items-center gap-2">
-        <button id="btn-save" class="btn btn-primary text-sm" onclick="saveCV()">
+      <div class="header-actions flex items-center gap-1 sm:gap-2">
+        <button id="btn-save" class="btn btn-primary text-xs sm:text-sm px-2 sm:px-3" onclick="saveCV()">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
-          Guardar
+          <span>Guardar</span>
         </button>
-        <button id="btn-pdf" class="btn btn-primary text-sm" onclick="generatePDF()">
+        <button id="btn-pdf" class="btn btn-primary text-xs sm:text-sm px-2 sm:px-3" onclick="generatePDF()">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-          PDF
+          <span>PDF</span>
         </button>
-        <button id="theme-toggle" class="btn-icon ml-2" onclick="toggleTheme()" title="Cambiar tema">
+        <div class="w-px h-5 bg-gray-300 dark:bg-gray-600 mx-0.5 sm:mx-1"></div>
+        <button class="btn btn-secondary text-xs px-1.5 sm:px-2 py-1" onclick="runAnalyze()" title="Analizar datos sensibles y ATS">🔍</button>
+        <button class="btn btn-secondary text-xs px-1.5 sm:px-2 py-1" onclick="runSanitize()" title="Sanitizar datos para GitHub">🧹</button>
+        <button class="btn btn-secondary text-xs px-1.5 sm:px-2 py-1" onclick="showReport()" title="Ver último reporte">📋</button>
+        <button id="theme-toggle" class="btn-icon ml-1 sm:ml-2" onclick="toggleTheme()" title="Cambiar tema">
           <svg id="sun-icon" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
           <svg id="moon-icon" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
         </button>
@@ -331,8 +379,8 @@
   <div class="editor-layout flex max-w-7xl mx-auto" style="height: calc(100vh - 3.5rem);">
 
     <!-- LEFT: EDITOR -->
-    <div class="editor-panel w-1/2 border-r border-border dark:border-[#3a3a4f] overflow-y-auto editor-scroll p-4 pb-8">
-      <form id="cv-form" class="space-y-4">
+    <div class="editor-panel w-1/2 border-r border-border dark:border-[#3a3a4f] overflow-y-auto editor-scroll p-5 pb-10">
+      <form id="cv-form" class="space-y-5">
 
         <!-- PERSONAL INFO -->
         <div class="section-card">
@@ -349,23 +397,23 @@
               <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Título / Headline</label>
               <input class="form-input" id="field-headline" placeholder="Fullstack Developer">
             </div>
-            <div class="grid grid-cols-2 gap-3">
+            <div class="grid grid-cols-2 gap-4">
               <div>
-                <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Ubicación</label>
+                <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5">Ubicación</label>
                 <input class="form-input" id="field-location" placeholder="San Francisco, CA">
               </div>
               <div>
-                <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Email</label>
+                <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5">Email</label>
                 <input class="form-input" id="field-email" type="email" placeholder="john@example.com">
               </div>
             </div>
-            <div class="grid grid-cols-2 gap-3">
+            <div class="grid grid-cols-2 gap-4">
               <div>
-                <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">LinkedIn (URL)</label>
+                <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5">LinkedIn (URL)</label>
                 <input class="form-input" id="field-linkedin" placeholder="https://linkedin.com/in/...">
               </div>
               <div>
-                <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">GitHub (URL)</label>
+                <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5">GitHub (URL)</label>
                 <input class="form-input" id="field-github" placeholder="https://github.com/...">
               </div>
             </div>
@@ -454,7 +502,7 @@
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
         </button>
       </div>
-      <div class="flex-1 p-4 bg-gray-100 dark:bg-[#16162a] overflow-hidden">
+      <div class="flex-1 p-4 bg-gray-100 dark:bg-[#16162a] overflow-hidden" style="min-height:0;">
         <div class="preview-container mx-auto shadow-lg">
           <iframe id="preview-frame" srcdoc="<html><body style='display:flex;align-items:center;justify-content:center;height:100vh;margin:0;color:#94a3b8;font-family:sans-serif;font-size:14px;background:#f0f0f0;'><p>Cargando previsualización...</p></body></html>"></iframe>
         </div>

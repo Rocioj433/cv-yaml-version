@@ -8,6 +8,8 @@
     "generate": "node scripts/generate.js data/cv.yaml",
     "generate:json": "node scripts/generate.js data/cv.json",
     "generate:md": "node scripts/generate.js data/cv.md",
+    "agent": "node agent/agent.js",
+    "agent:sanitize": "node agent/agent.js sanitize",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

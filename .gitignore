@@ -1,2 +1,5 @@
 node_modules/
 output/
+.agents/
+Documentacion/
+skills-lock.json

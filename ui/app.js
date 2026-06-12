@@ -438,10 +438,148 @@ function toast(message, type = 'info') {
   }, 3000);
 }
 
-// ── Keyboard shortcut ──
+// ── Agent Functions ──
+
+let lastReport = null;
+
+async function runAnalyze() {
+  const overlay = document.getElementById('loading');
+  overlay.classList.add('active');
+  try {
+    const res = await api('/api/agent/analyze', { method: 'POST' });
+    if (res.success) {
+      lastReport = res.report;
+      displayReport(res.report, 'analyze');
+      toast('Análisis completado', 'success');
+    } else {
+      toast('Error: ' + res.error, 'error');
+    }
+  } catch (err) {
+    toast('Error de conexión', 'error');
+  } finally {
+    overlay.classList.remove('active');
+  }
+}
+
+async function runSanitize() {
+  if (!confirm('¿Sanitizar datos personales? Se reemplazarán por placeholders genéricos.')) return;
+  const overlay = document.getElementById('loading');
+  overlay.classList.add('active');
+  try {
+    const res = await api('/api/agent/sanitize', { method: 'POST' });
+    if (res.success) {
+      lastReport = res.report;
+      displayReport(res.report, 'sanitize');
+      toast('Datos sanitizados', 'success');
+      await loadCV();
+    } else {
+      toast('Error: ' + res.error, 'error');
+    }
+  } catch (err) {
+    toast('Error de conexión', 'error');
+  } finally {
+    overlay.classList.remove('active');
+  }
+}
+
+function showReport() {
+  if (!lastReport) {
+    toast('Primero ejecutá un análisis o sanitización', 'info');
+    return;
+  }
+  displayReport(lastReport, 'view');
+}
+
+function displayReport(report, mode) {
+  const modal = document.getElementById('report-modal');
+  const content = document.getElementById('report-content');
+
+  const modeLabels = { analyze: '🔍 Análisis', sanitize: '🧹 Sanitización', view: '📋 Reporte' };
+  const date = new Date(report.timestamp);
+
+  let html = `<div class="flex items-center justify-between mb-2 pb-2 border-b border-border dark:border-[#3a3a4f]">
+    <div class="flex items-center gap-2 flex-wrap">
+      <span class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Reporte</span>
+      <span class="text-xs px-1.5 py-0.5 rounded bg-panel dark:bg-[#3a3a4f]">${modeLabels[mode] || 'Reporte'}</span>
+    </div>
+    <button class="btn-icon text-xs flex-shrink-0" onclick="hideReport()">✕</button>
+  </div>
+  <div class="text-xs text-gray-400 mb-2">${date.toLocaleString()}</div>`;
+
+  // Guardrail issues
+  if (report.guardrail.issues.length > 0) {
+    html += `<div class="mb-2"><span class="text-xs font-semibold text-gray-500 uppercase">Datos sensibles</span></div>`;
+    report.guardrail.issues.forEach(i => {
+      const icon = i.severity === 'error' ? '🔴' : '🟡';
+      html += `<div class="flex items-start gap-1.5 text-xs ${i.severity === 'error' ? 'text-red-600 dark:text-red-400' : 'text-yellow-600 dark:text-yellow-400'}"><span>${icon}</span><span>${esc(i.message)}</span></div>`;
+    });
+  } else {
+    html += `<div class="text-xs text-green-600 dark:text-green-400 mb-2">✅ Sin issues de datos sensibles</div>`;
+  }
+
+  // Sanitize changes
+  if (report.sanitize.changes && report.sanitize.changes.length > 0) {
+    html += `<div class="mt-3 mb-1"><span class="text-xs font-semibold text-gray-500 uppercase">Cambios realizados (${report.sanitize.totalChanges})</span></div>`;
+    report.sanitize.changes.forEach(c => {
+      html += `<div class="text-xs flex items-start gap-1.5 text-blue-600 dark:text-blue-400"><span>✏️</span><span><strong>${esc(c.field)}</strong>: ${esc(c.from)} → ${esc(c.to)}</span></div>`;
+    });
+  }
+
+  // ATS
+  if (report.ats.score !== null) {
+    const colors = { excellent: 'text-green-600', good: 'text-blue-600', fair: 'text-yellow-600', poor: 'text-red-600' };
+    html += `<div class="mt-3 mb-1"><span class="text-xs font-semibold text-gray-500 uppercase">ATS Score</span></div>`;
+    const colorClass = colors[report.ats.label] || 'text-gray-600';
+    html += `<div class="text-sm font-bold ${colorClass}">${report.ats.score}/100 (${report.ats.label})</div>`;
+    if (report.ats.warnings.length > 0) {
+      report.ats.warnings.forEach(w => {
+        html += `<div class="text-xs text-yellow-600 dark:text-yellow-400 flex items-start gap-1.5"><span>⚠️</span><span>${esc(w.message)}</span></div>`;
+      });
+    }
+  }
+
+  // Metadata
+  if (report.metadata) {
+    html += `<div class="mt-3 mb-1"><span class="text-xs font-semibold text-gray-500 uppercase">Métricas</span></div>`;
+    html += `<div class="grid grid-cols-2 gap-1 text-xs text-gray-600 dark:text-gray-400">`;
+    html += `<div>🧑‍💼 Experiencias: ${report.metadata.totalExperiences}</div>`;
+    html += `<div>🎓 Educación: ${report.metadata.totalEducation}</div>`;
+    html += `<div>📁 Proyectos: ${report.metadata.totalProjects}</div>`;
+    html += `<div>🔧 Skills: ${report.metadata.totalSkills}</div>`;
+    html += `<div>📅 Rango: ${report.metadata.dateRange.earliest || '—'} → ${report.metadata.dateRange.latest || '—'}</div>`;
+    html += `<div>⏳ Duración: ${report.metadata.careerDurationYears || '—'} años</div>`;
+    html += `</div>`;
+  }
+
+  content.innerHTML = html;
+  modal.classList.remove('opacity-0', 'pointer-events-none');
+}
+
+function hideReport() {
+  document.getElementById('report-modal').classList.add('opacity-0', 'pointer-events-none');
+}
+
+document.getElementById('report-modal').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) hideReport();
+});
+
+// ── Re-scale preview on window resize ──
+let resizeTimeout;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    lastPreviewData = '';
+    refreshPreview();
+  }, 400);
+});
+
+// ── Keyboard shortcuts ──
 document.addEventListener('keydown', (e) => {
   if ((e.ctrlKey || e.metaKey) && e.key === 's') {
     e.preventDefault();
     saveCV();
+  }
+  if (e.key === 'Escape') {
+    hideReport();
   }
 });

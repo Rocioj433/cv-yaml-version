@@ -4,6 +4,7 @@ const express = require('express');
 const yaml = require('js-yaml');
 const { chromium } = require('playwright');
 const { parseCV } = require('./scripts/parsers');
+const { runAgent } = require('./agent/orchestrator');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -200,6 +201,34 @@ function renderCV(data) {
 
   return html;
 }
+
+// ── Agent API Routes ──
+
+app.post('/api/agent/analyze', (req, res) => {
+  try {
+    const data = parseCV(DATA_FILE);
+    runAgent('analyze', data).then(result => {
+      res.json({ success: true, report: result.report });
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.post('/api/agent/sanitize', (req, res) => {
+  try {
+    const data = parseCV(DATA_FILE);
+    runAgent('sanitize', data).then(result => {
+      if (result.sanitizedCv) {
+        const yamlStr = yaml.dump({ cv: result.sanitizedCv }, { lineWidth: 120, indent: 2 });
+        fs.writeFileSync(DATA_FILE, yamlStr, 'utf8');
+      }
+      res.json({ success: true, report: result.report });
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
 
 // ── API Routes ──
 
